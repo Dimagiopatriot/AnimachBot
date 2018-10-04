@@ -1,9 +1,6 @@
 package springboot
 
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.mashape.unirest.http.Unirest
+import com.google.gson.GsonBuilder
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
@@ -17,11 +14,7 @@ class Application
 class ObjectMapperConfiguration {
     @Bean
     @Primary
-    fun objectMapper() = ObjectMapper().apply {
-        registerModule(KotlinModule())
-        configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-
-    }
+    fun objectMapper() = GsonBuilder().setPrettyPrinting()?.create()
 }
 
 fun main(args: Array<String>) {

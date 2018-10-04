@@ -22,7 +22,7 @@ private fun propertiesAccess(input: InputStream?, function: (Properties) -> Unit
 
 fun Properties.getAppProperty(propertyName: String): String {
     val fileName = "application.properties"
-    val input = javaClass.classLoader.getResourceAsStream(fileName)
+    val input = Properties::javaClass.javaClass.classLoader.getResourceAsStream(fileName)
     var result = ""
     propertiesAccess(input, { properties -> result = properties.getProperty(propertyName) })
     return result
@@ -30,6 +30,6 @@ fun Properties.getAppProperty(propertyName: String): String {
 
 fun Properties.saveAppPropertyValue(propertyName: String, propertyValue: String) {
     val fileName = "application.properties"
-    val input = javaClass.classLoader.getResourceAsStream(fileName)
+    val input = Properties::javaClass.javaClass.classLoader.getResourceAsStream(fileName)
     propertiesAccess(input, { properties -> properties.setProperty(propertyName, propertyValue) })
 }
