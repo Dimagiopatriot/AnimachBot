@@ -1,0 +1,4 @@
+package deviantart
+
+class Rest {
+}
