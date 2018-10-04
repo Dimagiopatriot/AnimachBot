@@ -2,16 +2,10 @@ import java.io.IOException
 import java.io.InputStream
 import java.util.*
 
-fun Properties.getAppProperty(propertyName: String) : String {
-    val prop = Properties()
-    var input: InputStream? = null
-
-    return try {
-        val fileName = "application.properties"
-        input = javaClass.classLoader.getResourceAsStream(fileName)
+private fun propertiesAccess(input: InputStream?, function: (Properties) -> Unit, prop: Properties = Properties()) {
+    try {
         prop.load(input)
-
-        prop.getProperty(propertyName)
+        return function(prop)
 
     } catch (e: IOException) {
         e.stackTrace.toString()
@@ -24,4 +18,18 @@ fun Properties.getAppProperty(propertyName: String) : String {
             }
         }
     }
+}
+
+fun Properties.getAppProperty(propertyName: String): String {
+    val fileName = "application.properties"
+    val input = javaClass.classLoader.getResourceAsStream(fileName)
+    var result = ""
+    propertiesAccess(input, { properties -> result = properties.getProperty(propertyName) })
+    return result
+}
+
+fun Properties.saveAppPropertyValue(propertyName: String, propertyValue: String) {
+    val fileName = "application.properties"
+    val input = javaClass.classLoader.getResourceAsStream(fileName)
+    propertiesAccess(input, { properties -> properties.setProperty(propertyName, propertyValue) })
 }

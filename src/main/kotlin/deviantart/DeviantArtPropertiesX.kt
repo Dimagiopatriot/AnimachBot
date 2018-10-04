@@ -1,9 +1,7 @@
 package deviantart
 
-import java.io.IOException
-import java.io.InputStream
+import getAppProperty
 import java.util.*
-import
 
 
 fun Properties.getClientId(): Int = getAppProperty("DEVIANT_ART_CLIENT_ID").toInt()
