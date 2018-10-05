@@ -17,3 +17,18 @@ data class AccessTokenResponse(@SerializedName("access_token") val accessToken: 
 data class UserProfileResponse(@SerializedName("stats") val statistic: UserStats)
 
 data class UserStats(@SerializedName("user_deviations") val userPicturesNumber: Int)
+
+
+//Telegram data classes
+data class Update(
+        val message: Message?
+)
+
+data class Message(
+        val chat: Chat,
+        val text: String?
+)
+
+data class Chat(
+        val id: Long
+)
