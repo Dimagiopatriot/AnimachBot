@@ -21,7 +21,7 @@ class Rest {
                                 onSuccess(gallery)
                             }
                             401 -> {
-                                getAccessToken({ getUserGallery(userId, onSuccess, onError) }, onError)
+                                getAccessToken({ getUserGallery(userId, onSuccess, onError, offset, limit) }, onError)
                             }
                             else -> onError()
                         }
@@ -71,6 +71,9 @@ class Rest {
                             200 -> {
                                 val userProfileResponse = Gson().fromJson(response.body, UserProfileResponse::class.java)
                                 onSuccess(userProfileResponse.statistic)
+                            }
+                            401 -> {
+                                getAccessToken({ getUserStat(userId, onSuccess, onError) }, onError)
                             }
                             else -> onError()
                         }

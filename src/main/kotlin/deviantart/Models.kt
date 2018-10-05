@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class UserGalleryResponse(@SerializedName("results") val results: Array<GalleryItem>)
 
-data class GalleryItem(val content: Content)
+data class GalleryItem(val content: Content?)
 
 data class Content(@SerializedName("src")  val artUrl: String)
 
