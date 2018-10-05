@@ -38,7 +38,7 @@ class RestTest {
         val restManager = RestManager()
         val lock = CountDownLatch(1)
 
-        restManager.getRamdomPicFromRandomAuthor { response ->
+        restManager.getRandomPicFromRandomAuthor { response ->
             println(response)
             lock.countDown()
         }

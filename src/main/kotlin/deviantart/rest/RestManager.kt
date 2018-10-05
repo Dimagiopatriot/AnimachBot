@@ -8,7 +8,7 @@ open class RestManager {
     private val failDecreasePercentage = 10
     private val restClient: Rest = Rest()
 
-    fun getRamdomPicFromRandomAuthor(urlCallback: (String) -> Unit) {
+    fun getRandomPicFromRandomAuthor(urlCallback: (String) -> Unit) {
         val randomAuthorId = AUTHORS[getRandom(AUTHORS.size - 1)]
 
         getURL(randomAuthorId, urlCallback)
