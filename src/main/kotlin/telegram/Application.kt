@@ -6,7 +6,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException
 import restartApplicationOnTimeout
 import java.util.*
 
-const val RESTART_TIME = 50000
+const val RESTART_TIME = 30000
 
 fun main(args: Array<String>) {
     ApiContextInitializer.init()
