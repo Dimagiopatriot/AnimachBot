@@ -1,1 +1,1 @@
-web: java -jar build/libs/AnimachBot-1.0-SNAPSHOT.jar
+web: java -Dserver.port=80 -jar build/libs/AnimachBot-1.0-SNAPSHOT.jar

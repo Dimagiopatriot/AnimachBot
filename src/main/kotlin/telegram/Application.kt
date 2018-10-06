@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
         e.stackTrace
     }
     //Timer in new thread
-    Thread(Runnable {
+   /* Thread(Runnable {
         val currentTime = Calendar.getInstance().timeInMillis
         while (true) {
             if (RESTART_TIME < Calendar.getInstance().timeInMillis - currentTime) {
@@ -26,5 +26,5 @@ fun main(args: Array<String>) {
             }
 
         }
-    }).start()
+    }).start()*/
 }
