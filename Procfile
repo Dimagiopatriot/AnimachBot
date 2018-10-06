@@ -1,1 +1,1 @@
-worker: sh build/distributions/AnimachBot-1.0-SNAPSHOT
+worker: sh build/install/AnimachBot/bin/AnimachBot
