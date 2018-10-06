@@ -25,14 +25,24 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    implementation "org.telegram:telegrambots:4.1"
+    compile "org.telegram:telegrambots:4.1"
 
-    implementation 'com.google.code.gson:gson:2.8.5'
+    compile 'com.google.code.gson:gson:2.8.5'
 
     compile 'com.mashape.unirest:unirest-java:1.4.9'
     testCompile 'junit:junit:4.12'
 }
 
+task stage(dependsOn: ['installDist'])
+
+task customFatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'telegram.ApplicationKt'
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
 sourceCompatibility = 1.8
 
 compileKotlin {
