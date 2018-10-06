@@ -33,7 +33,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-task stage(dependsOn: ['installDist'])
+task stage(dependsOn: ['customFatJar'])
 
 task customFatJar(type: Jar) {
     manifest {
