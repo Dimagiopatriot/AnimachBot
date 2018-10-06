@@ -1,1 +1,1 @@
-worker: sh -jar build/distributions/AnimachBot-1.0-SNAPSHOT
+worker: sh build/distributions/AnimachBot-1.0-SNAPSHOT
