@@ -37,14 +37,6 @@ dependencies {
 
 task stage(dependsOn: ['installDist'])
 
-/*task customFatJar(type: Jar) {
-    manifest {
-        attributes 'Main-Class': 'telegram.ApplicationKt'
-    }
-    baseName = project.name
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}*/
 sourceCompatibility = 1.8
 
 compileKotlin {

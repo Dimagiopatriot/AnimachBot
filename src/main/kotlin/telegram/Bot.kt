@@ -6,17 +6,22 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto
 import org.telegram.telegrambots.meta.api.objects.Update
+import java.util.*
 import java.util.logging.Level
 import java.util.logging.Logger
 
 class Bot : TelegramLongPollingBot() {
 
-    companion object {
-        private const val TOKEN = "636023743:AAE6hsYJo6Oow9x6c-v0CyY9RjXDtaFipcc"
-    }
+    private var TOKEN = ""
 
     private val logger: Logger = Logger.getLogger("[EchoBot]")
     private val restManager: RestManager = RestManager()
+
+    init {
+        val prop = Properties()
+        prop.load(this::javaClass.javaClass.classLoader.getResourceAsStream("application.properties"))
+        TOKEN = prop.getProperty("token")
+    }
 
     override fun getBotUsername(): String = "AnimachBot"
 
