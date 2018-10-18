@@ -9,7 +9,7 @@ import deviantart.*
 
 class Rest {
 
-    fun getUserGallery(userId: String, onSuccess: (UserGalleryResponse) -> Unit, onError: () -> Unit = {}, offset: Int = 0,
+    fun getUserGallery(userId: String, onSuccess: (GalleryResponse) -> Unit, onError: () -> Unit = {}, offset: Int = 0,
                        limit: Int = 1) {
         Unirest.get(userGallery(userId, DEVIANT_ART_ACCESS_TOKEN) + "&offset=$offset&limit=$limit")
                 .asStringAsync(object : Callback<String> {
@@ -17,7 +17,7 @@ class Rest {
                     override fun completed(response: HttpResponse<String>) {
                         when (response.status) {
                             200 -> {
-                                val gallery = Gson().fromJson(response.body, UserGalleryResponse::class.java)
+                                val gallery = Gson().fromJson(response.body, GalleryResponse::class.java)
                                 onSuccess(gallery)
                             }
                             401 -> {
@@ -84,6 +84,32 @@ class Rest {
                     }
 
                     override fun cancelled() {
+                        onError()
+                    }
+                })
+    }
+
+    fun getInlineQueryResponse(query: String, onSuccess: (GalleryResponse) -> Unit, onError: () -> Unit = {}) {
+        Unirest.get(browsePopular(query, DEVIANT_ART_ACCESS_TOKEN))
+                .asStringAsync(object : Callback<String> {
+                    override fun cancelled() {
+                        onError()
+                    }
+
+                    override fun completed(response: HttpResponse<String>) {
+                        when (response.status) {
+                            200 -> {
+                                val pictureGallery = Gson().fromJson(response.body, GalleryResponse::class.java)
+                                onSuccess(pictureGallery)
+                            }
+                            401 -> {
+                                getAccessToken({ getInlineQueryResponse(query, onSuccess, onError) }, onError)
+                            }
+                            else -> onError()
+                        }
+                    }
+
+                    override fun failed(e: UnirestException?) {
                         onError()
                     }
                 })

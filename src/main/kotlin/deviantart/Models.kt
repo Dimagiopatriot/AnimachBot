@@ -2,12 +2,16 @@ package deviantart
 
 import com.google.gson.annotations.SerializedName
 
-data class UserGalleryResponse(@SerializedName("results") val results: Array<GalleryItem>)
+data class GalleryResponse(@SerializedName("results") val results: List<GalleryItem>)
 
-data class GalleryItem(val content: Content?)
+data class GalleryItem(val content: Content?,
+                       val thumbs: List<Thumb>)
 
 data class Content(@SerializedName("src")  val artUrl: String)
 
+data class Thumb(@SerializedName("src") val url: String,
+                 val height: Int,
+                 val width: Int)
 
 //Update Access Token
 data class AccessTokenResponse(@SerializedName("access_token") val accessToken: String)

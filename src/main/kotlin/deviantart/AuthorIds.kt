@@ -8,4 +8,5 @@ val AUTHORS = listOf("ryo-suzuki",
         "milemiru",
         "johnsu",
         "ladowska",
-        "totoro-gx")
+        "totoro-gx",
+        "sasucchi95")

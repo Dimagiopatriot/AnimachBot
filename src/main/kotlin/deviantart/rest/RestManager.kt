@@ -1,8 +1,20 @@
 package deviantart.rest
 
 import deviantart.AUTHORS
+import deviantart.GalleryItem
 
-open class RestManager {
+open class RestManager private constructor() {
+
+    /**
+     * Singleton
+     * */
+    private object Holder {
+        val INSTANCE = RestManager()
+    }
+
+    companion object {
+        val instance: RestManager by lazy { Holder.INSTANCE }
+    }
 
     //if gallery request has no results, we will decrease total number of user arts by this percent
     private val failDecreasePercentage = 10
@@ -45,6 +57,15 @@ open class RestManager {
                 {
                     urlCallback(onError())
                 }, pictureNumber)
+    }
+
+    fun getInlineResults(query: String, callback: (List<GalleryItem>) -> Unit) {
+        restClient.getInlineQueryResponse(query,
+                { galleryResponse ->
+                    if (!galleryResponse.results.isEmpty()) {
+                        callback(galleryResponse.results)
+                    }
+                })
     }
 
 
