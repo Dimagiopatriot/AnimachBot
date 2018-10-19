@@ -18,7 +18,8 @@ class InlineHandler(private val bot: TelegramLongPollingBot) {
         logger.log(Level.INFO, "Searching: $query")
 
         if (!query.isEmpty()) {
-            restManager.getInlineResults(query) { items -> onResult(inlineQuery, items) }
+            restManager.getInlineResults(query) { items -> onResult(inlineQuery, items)
+            logger.log(Level.INFO, "Items: $items")}
         } else {
             bot.execute(convertResultsToResponse(inlineQuery, mutableListOf()))
         }

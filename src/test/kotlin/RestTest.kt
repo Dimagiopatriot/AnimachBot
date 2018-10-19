@@ -21,7 +21,7 @@ class RestTest {
 
     @Test
     fun testRestManagerPictureUrlFroUserGalleryContentNull() {
-        val restManager = RestManager()
+        val restManager = RestManager.instance
         val lock = CountDownLatch(1)
 
 
@@ -35,10 +35,23 @@ class RestTest {
 
     @Test
     fun testRestManagerRandomPicRandomUser() {
-        val restManager = RestManager()
+        val restManager = RestManager.instance
         val lock = CountDownLatch(1)
 
         restManager.getRandomPicFromRandomAuthor { response ->
+            println(response)
+            lock.countDown()
+        }
+
+        lock.await(30000, TimeUnit.MILLISECONDS)
+    }
+
+    @Test
+    fun testRestManagerGetInlineResults() {
+        val restManager = RestManager.instance
+        val lock = CountDownLatch(1)
+
+        restManager.getInlineResults("ee") { response ->
             println(response)
             lock.countDown()
         }
