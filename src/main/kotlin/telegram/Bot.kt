@@ -10,7 +10,7 @@ import java.util.logging.Logger
 
 class Bot : TelegramLongPollingBot() {
 
-    private var TOKEN = ""
+    private var TOKEN : String
 
     private val logger: Logger = Logger.getLogger("[EchoBot]")
 

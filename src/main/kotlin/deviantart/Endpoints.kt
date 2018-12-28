@@ -12,5 +12,5 @@ fun userInfo(userId: String, accessToken: String) = "$BASE_URL/user/profile/$use
 fun userGallery(userId: String, accessToken: String): String = "$BASE_URL/gallery/all?" +
         "username=$userId&access_token=$accessToken"
 
-fun browsePopular(query: String, accessToken: String, limit: Int = 30, offset: Int = 0): String = "$BASE_URL/browse/popular?" +
+fun browsePopular(query: String, accessToken: String, limit: Int = 24, offset: Int = 0): String = "$BASE_URL/browse/popular?" +
         "timerange=alltime&limit=$limit&offset=$offset&q=$query&access_token=$accessToken"
