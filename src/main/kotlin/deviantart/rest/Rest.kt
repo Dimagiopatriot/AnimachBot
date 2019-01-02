@@ -6,6 +6,7 @@ import com.mashape.unirest.http.Unirest
 import com.mashape.unirest.http.async.Callback
 import com.mashape.unirest.http.exceptions.UnirestException
 import deviantart.*
+import java.util.logging.Logger
 
 class Rest {
 
@@ -89,29 +90,20 @@ class Rest {
                 })
     }
 
-    fun getInlineQueryResponse(query: String, onSuccess: (GalleryResponse) -> Unit, onError: () -> Unit = {}) {
-        Unirest.get(browsePopular(query, DEVIANT_ART_ACCESS_TOKEN))
-                .asStringAsync(object : Callback<String> {
-                    override fun cancelled() {
-                        onError()
-                    }
+    fun getInlineQueryResponse(query: String, offset: Int, onSuccess: (GalleryResponse) -> Unit, onError: () -> Unit = {}) {
+        val url = browsePopular(query, DEVIANT_ART_ACCESS_TOKEN, offset = offset)
+        Logger.getGlobal().info("Inline query url: $url")
 
-                    override fun completed(response: HttpResponse<String>) {
-                        when (response.status) {
-                            200 -> {
-                                val pictureGallery = Gson().fromJson(response.body, GalleryResponse::class.java)
-                                onSuccess(pictureGallery)
-                            }
-                            401 -> {
-                                getAccessToken({ getInlineQueryResponse(query, onSuccess, onError) }, onError)
-                            }
-                            else -> onError()
-                        }
-                    }
-
-                    override fun failed(e: UnirestException?) {
-                        onError()
-                    }
-                })
+        val response = Unirest.get(url).asString()
+        when (response.status) {
+            200 -> {
+                val pictureGallery = Gson().fromJson(response.body, GalleryResponse::class.java)
+                onSuccess(pictureGallery)
+            }
+            401 -> {
+                getAccessToken({ getInlineQueryResponse(query, offset, onSuccess, onError) }, onError)
+            }
+            else -> onError()
+        }
     }
 }

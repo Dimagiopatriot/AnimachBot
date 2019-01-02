@@ -9,7 +9,9 @@ fun convertResultsToResponse(inlineQuery: InlineQuery, itemsFromResponse: List<G
     val answerInlineQuery = AnswerInlineQuery()
     answerInlineQuery.inlineQueryId = inlineQuery.id
     answerInlineQuery.cacheTime = 0
-    answerInlineQuery.results = itemsFromResponse.mapIndexed { index, galleryItem ->
+    answerInlineQuery.nextOffset = "24"
+    val filteredResults = itemsFromResponse.filter { it.thumbs.isNotEmpty() && it.content != null }
+    answerInlineQuery.results = filteredResults.mapIndexed { index, galleryItem ->
         InlineQueryResultPhoto().apply {
             this.id = index.toString()
             this.thumbUrl = galleryItem.thumbs[0].url

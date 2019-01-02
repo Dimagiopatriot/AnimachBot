@@ -12,14 +12,25 @@ class InlineHandler(private val bot: TelegramLongPollingBot) {
     private val logger: Logger = Logger.getLogger("[CommandHandler]")
     private val restManager = RestManager.instance
 
+    private var offset: Int = 0
+
 
     fun handleIncomingInlineQuery(inlineQuery: InlineQuery) {
         val query = inlineQuery.query
         logger.log(Level.INFO, "Searching: $query, id ${inlineQuery.id}")
 
         if (query.isNotEmpty()) {
-            restManager.getInlineResults(query) { items -> onResult(inlineQuery, items)
-            logger.log(Level.INFO, "Items: $items")}
+
+            if (inlineQuery.offset.isNotBlank()) {
+                offset += inlineQuery.offset.toInt()
+            } else {
+                offset = 0
+            }
+
+            restManager.getInlineResults(query, offset) { items ->
+                onResult(inlineQuery, items)
+                logger.log(Level.INFO, "Items: $items")
+            }
         } else {
             bot.execute(convertResultsToResponse(inlineQuery, mutableListOf()))
         }

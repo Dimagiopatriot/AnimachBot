@@ -13,6 +13,8 @@ class Bot : TelegramLongPollingBot() {
     private var TOKEN : String
 
     private val logger: Logger = Logger.getLogger("[EchoBot]")
+    private val commandHandler = CommandHandler(this)
+    private val inlineHandler = InlineHandler(this)
 
     init {
         val prop = Properties()
@@ -26,8 +28,6 @@ class Bot : TelegramLongPollingBot() {
 
     override fun onUpdateReceived(update: Update?) {
         logger.log(Level.INFO, "Got update: $update")
-        val commandHandler = CommandHandler(this)
-        val inlineHandler = InlineHandler(this)
 
         when {
 

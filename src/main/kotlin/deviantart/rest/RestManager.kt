@@ -59,8 +59,8 @@ open class RestManager private constructor() {
                 }, pictureNumber)
     }
 
-    fun getInlineResults(query: String, callback: (List<GalleryItem>) -> Unit) {
-        restClient.getInlineQueryResponse(query,
+    fun getInlineResults(query: String, offset: Int, callback: (List<GalleryItem>) -> Unit) {
+        restClient.getInlineQueryResponse(query, offset,
                 { galleryResponse ->
                     if (!galleryResponse.results.isEmpty()) {
                         callback(galleryResponse.results)
