@@ -12,7 +12,8 @@ class CommandHandler(private val bot: Bot) {
 
     fun onStartCommand(chatId: Long) = try {
         bot.sendMessage(chatId, "Hello! I'm AnimachBot. I was created to send you pretty anime pics from DeviantArt!\n" +
-                "Write /get_random_pic to get picture or write @animachpicture_bot to find pictures by tag")
+                "Write /get_random_pic to get picture or write @animachpicture_bot to find pictures by tag\n" +
+                "/help - show available commands")
     } catch (e: UnirestException) {
         logger.log(Level.SEVERE, "Can not send START response!", e)
     }
