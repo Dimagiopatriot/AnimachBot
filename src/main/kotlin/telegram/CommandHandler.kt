@@ -12,7 +12,7 @@ class CommandHandler(private val bot: Bot) {
 
     fun onStartCommand(chatId: Long) = try {
         bot.sendMessage(chatId, "Hello! I'm AnimachBot. I was created to send you pretty anime pics from DeviantArt!\n" +
-                "Write /get_random_pic to get picture")
+                "Write /get_random_pic to get picture or write @animachpicture_bot to find pictures by tag")
     } catch (e: UnirestException) {
         logger.log(Level.SEVERE, "Can not send START response!", e)
     }
@@ -21,5 +21,11 @@ class CommandHandler(private val bot: Bot) {
         restManager.getRandomPicFromRandomAuthor { picUrl -> bot.sendPhoto(chatId, picUrl) }
     } catch (e: UnirestException) {
         logger.log(Level.SEVERE, "Can not send GET_RANDOM_PIC_RANDOM_GUY response!", e)
+    }
+
+    fun onHelpCommand(chatId: Long) = try {
+        bot.sendMessage(chatId, "Write /get_random_pic to get picture or write @animachpicture_bot to find pictures by tag")
+    } catch (e: UnirestException) {
+        logger.log(Level.SEVERE, "Can not send START response!", e)
     }
 }

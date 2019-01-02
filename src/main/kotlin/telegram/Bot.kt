@@ -42,6 +42,7 @@ class Bot : TelegramLongPollingBot() {
                 when {
                     text?.startsWith(START_COMMAND) == true -> commandHandler.onStartCommand(chatId)
                     text?.startsWith(RANDOM_PICTURE_FROM_RANDOM_AUTHOR) == true -> commandHandler.onGetRandomPictureFromRandomAuthorCommand(chatId)
+                    text?.startsWith(HELP_COMMAND) == true -> commandHandler.onHelpCommand(chatId)
                 }
             }
         }
