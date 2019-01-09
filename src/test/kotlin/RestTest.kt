@@ -51,7 +51,7 @@ class RestTest {
         val restManager = RestManager.instance
         val lock = CountDownLatch(1)
 
-        restManager.getInlineResults("ee") { response ->
+        restManager.getInlineResults("ee", 0) { response ->
             println(response)
             lock.countDown()
         }

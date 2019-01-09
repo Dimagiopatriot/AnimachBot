@@ -4,6 +4,7 @@ import deviantart.GalleryItem
 import deviantart.rest.RestManager
 import org.telegram.telegrambots.bots.TelegramLongPollingBot
 import org.telegram.telegrambots.meta.api.objects.inlinequery.InlineQuery
+import java.net.URLEncoder
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -27,7 +28,7 @@ class InlineHandler(private val bot: TelegramLongPollingBot) {
                 offset = 0
             }
 
-            restManager.getInlineResults(query, offset) { items ->
+            restManager.getInlineResults(URLEncoder.encode(query, "UTF-8"), offset) { items ->
                 onResult(inlineQuery, items)
                 logger.log(Level.INFO, "Items: $items")
             }
