@@ -13,4 +13,4 @@ fun userGallery(userId: String, accessToken: String): String = "$BASE_URL/galler
         "username=$userId&access_token=$accessToken"
 
 fun browsePopular(query: String, accessToken: String, limit: Int = 24, offset: Int = 0): String = "$BASE_URL/browse/popular?" +
-        "timerange=alltime&limit=$limit&offset=$offset&q=$query&access_token=$accessToken"
+        "timerange=alltime&limit=$limit&offset=$offset&q=$query&access_token=$accessToken&mature_content=true"
